@@ -75,6 +75,16 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>Frontend Server Stop</id>
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>stop-server</arguments>
+                            <workingDirectory>src/main/app</workingDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>Frontend Server Start</id>
                         <goals>
                             <goal>yarn</goal>

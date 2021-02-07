@@ -34,3 +34,9 @@ build/
 
 ### maven folder ###
 .mvn/
+
+### ignore the build folder ###
+src/main/app/build
+
+### ignore node_modules ###
+src/main/app/node_modules

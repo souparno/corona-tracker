@@ -74,6 +74,16 @@
                             <workingDirectory>src/main/app</workingDirectory>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>Frontend Server Start</id>
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>start-server</arguments>
+                            <workingDirectory>src/main/app</workingDirectory>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>            
             <plugin>

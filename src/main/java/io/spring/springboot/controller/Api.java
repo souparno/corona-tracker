@@ -17,18 +17,17 @@ public class Api {
     @Autowired
     DataService DataService;
 
-    @GetMapping("/")
-    ResponseEntity<String> get() throws URISyntaxException, IOException, InterruptedException {
-        return ResponseEntity.ok().body(DataService.fetchVirusData("/"));
+    private static final String VIRUS_DATA_URL = "https://api.covid19india.org";
+
+    @GetMapping("/{path}")
+    ResponseEntity<String> get(@PathVariable String path) throws URISyntaxException, IOException, InterruptedException {
+        String fetchVirusData = DataService.fetchVirusData(VIRUS_DATA_URL + "/v4/min/" + path);
+        return ResponseEntity.ok().body(fetchVirusData);
     }
 
-    @GetMapping("/countries")
-    ResponseEntity<String> getCountries() throws URISyntaxException, IOException, InterruptedException {
-        return ResponseEntity.ok().body(DataService.fetchVirusData("/countries/"));
-    }
-    
-    @GetMapping("/countries/{country}")
-    ResponseEntity<String> getCountry(@PathVariable String country) throws URISyntaxException, IOException, InterruptedException {
-        return ResponseEntity.ok().body(DataService.fetchVirusData("/countries/" + country));
+    @GetMapping("/updatelog")
+    ResponseEntity<String> getUpdateLog() throws URISyntaxException, IOException, InterruptedException {
+        String fetchVirusData = DataService.fetchVirusData(VIRUS_DATA_URL + "/updatelog/log.json");
+        return ResponseEntity.ok().body(fetchVirusData);
     }
 }

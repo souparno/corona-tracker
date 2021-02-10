@@ -12,7 +12,7 @@ import io.spring.springboot.services.DataService;
 
 @RestController
 @RequestMapping("/api/v1")
-public class Api {
+public class Covid19Data {
 
     @Autowired
     DataService DataService;

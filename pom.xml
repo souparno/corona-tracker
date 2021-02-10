@@ -19,6 +19,19 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
         <dependency>
@@ -32,8 +45,49 @@
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
@@ -49,7 +103,7 @@
                     <yarnVersion>v1.22.0</yarnVersion>
                 </configuration>
                 <executions>
-                    <execution>
+                    <!--                    <execution>
                         <id>Install Node and Yarn</id>
                         <goals>
                             <goal>install-node-and-yarn</goal>
@@ -73,18 +127,8 @@
                             <arguments>build</arguments>
                             <workingDirectory>src/main/app</workingDirectory>
                         </configuration>
-                    </execution>
-                    <execution>
-                        <id>Frontend Server Stop</id>
-                        <goals>
-                            <goal>yarn</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>stop-server</arguments>
-                            <workingDirectory>src/main/app</workingDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
+                    </execution>-->
+                    <!--                    <execution>
                         <id>Frontend Server Start</id>
                         <goals>
                             <goal>yarn</goal>
@@ -93,7 +137,7 @@
                             <arguments>start-server</arguments>
                             <workingDirectory>src/main/app</workingDirectory>
                         </configuration>
-                    </execution>
+                    </execution>-->
                 </executions>
             </plugin>            
             <plugin>

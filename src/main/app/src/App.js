@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {lazy, useState, Suspense, useEffect} from 'react';
 import {Route, Redirect, Switch, useLocation} from 'react-router-dom';
 import useDarkMode from 'use-dark-mode';
+
 import Login from './user/login/Login';
 import Signup from './user/signup/Signup';
 import Profile from './user/profile/Profile';
@@ -11,8 +12,8 @@ import { getCurrentUser } from './utils/APIUtils';
 import { ACCESS_TOKEN } from './constants';
 
 const Home = lazy(() => import('./components/Home'));
+const State = lazy(() => import('./components/State'));
 const { Content } = Layout;
-
 
 class App extends Component {
 
@@ -31,50 +32,7 @@ class App extends Component {
       placement: 'topRight',
       top: 70,
       duration: 3,
-    });    
-
-
-// this.darkMode = useDarkMode(false);
-// const [showLanguageSwitcher, setShowLanguageSwitcher] = useState(false);
-// const location = useLocation();
-
-// const pages = [
-//   {
-//     pageLink: '/',
-//     view: Home,
-//     displayName: 'Home',
-//     showInNavbar: true,
-//   },
-//   {
-//     pageLink: '/blog',
-//     view: Blog,
-//     displayName: 'Blog',
-//     showInNavbar: true,
-//   },
-//   {
-//     pageLink: '/about',
-//     view: About,
-//     displayName: 'About',
-//     showInNavbar: true,
-//   },
-//   {
-//     pageLink: '/state/:stateCode',
-//     view: State,
-//     displayName: 'State',
-//     showInNavbar: false,
-//   },
-// ];
-
-// useEffect(() => {
-//   if (showLanguageSwitcher) {
-//     // For Chrome, Firefox, IE and Opera
-//     document.documentElement.scrollTo({top: 0, behavior: 'smooth'});
-//     // For Safari
-//     document.body.scrollTo({top: 0, behavior: 'smooth'});
-//   }
-// }, [showLanguageSwitcher]);
-
-
+    });
   }
 
   loadCurrentUser() {
@@ -127,17 +85,43 @@ class App extends Component {
 
   
   render (){
-    
-  return (
-    <div className="App">
-      <Switch> 
-            <Route path="/" component={Home}></Route>
-            <Route path="/login" render={(props) => <Login onLogin={this.handleLogin} {...props} />}></Route>
-            <Route path="/signup" component={Signup}></Route>
-            <Route path="/users/:username" render={(props) => <Profile isAuthenticated={this.state.isAuthenticated} currentUser={this.state.currentUser} {...props}  />}></Route>
-        </Switch>
-    </div>
-  );
+    const pages = [
+      {
+        pageLink: '/',
+        view: Home,
+        displayName: 'Home',
+        showInNavbar: true,
+      },
+      {
+        pageLink: '/state/:stateCode',
+        view: State,
+        displayName: 'State',
+        showInNavbar: false,
+      },
+    ];
+
+    return (
+      <div className="App">
+
+        <Suspense fallback={<div />}>
+          <Switch>
+            {pages.map((page, index) => {
+              return (
+                <Route
+                  exact
+                  path={page.pageLink}
+                  render={({match}) => <page.view />}
+                  key={index}
+                />
+              );
+            })}
+              <Route path="/login" render={(props) => <Login onLogin={this.handleLogin} {...props} />}></Route>
+              <Route path="/signup" component={Signup}></Route>
+              <Route path="/users/:username" render={(props) => <Profile isAuthenticated={this.state.isAuthenticated} currentUser={this.state.currentUser} {...props}  />}></Route>
+          </Switch>
+        </Suspense>
+      </div>
+    );
   }
 };
 

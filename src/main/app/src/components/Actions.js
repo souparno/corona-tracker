@@ -1,9 +1,8 @@
-import {API_ROOT_URL} from '../constants';
 import ActionsPanel from './ActionsPanel';
 import {fetcher} from '../utils/commonFunctions';
 import {memo, useState, useEffect, lazy, Suspense} from 'react';
 import {useLocalStorage} from 'react-use';
-import useSWR from 'swr';
+import {updatelog} from '../utils/APIUtils';
 
 const Updates = lazy(() => import('./Updates'));
 
@@ -12,14 +11,7 @@ const Actions = ({setDate, dates}) => {
   const [newUpdate, setNewUpdate] = useLocalStorage('newUpdate', false);
   const [lastViewedLog, setLastViewedLog] = useLocalStorage('lastViewedLog', 0);
   const [isTimelineMode, setIsTimelineMode] = useState(false);
-
-  const {data: updates} = useSWR(
-    `${API_ROOT_URL}/updatelog`,
-    fetcher,
-    {
-      revalidateOnFocus: true,
-    }
-  );
+  const {data: updates} = updatelog();
 
   useEffect(() => {
     if (updates !== undefined) {

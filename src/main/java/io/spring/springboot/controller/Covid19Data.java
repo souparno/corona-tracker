@@ -25,9 +25,31 @@ public class Covid19Data {
         return ResponseEntity.ok().body(fetchVirusData);
     }
 
+    @GetMapping("/timeseries")
+    ResponseEntity<String> getTimeseries() throws URISyntaxException, IOException, InterruptedException {
+        String path = "timeseries.min.json";
+        String fetchVirusData = DataService.fetchVirusData(VIRUS_DATA_URL + "/v4/min/" + path);
+        return ResponseEntity.ok().body(fetchVirusData);
+    }
+
+    @GetMapping("/timeseries/{stateCode}")
+    ResponseEntity<String> getTimeseriesState(@PathVariable String stateCode) throws URISyntaxException, IOException, InterruptedException {
+        String path = "timeseries-" + stateCode + ".min.json";
+        String fetchVirusData = DataService.fetchVirusData(VIRUS_DATA_URL + "/v4/min/" + path);
+        return ResponseEntity.ok().body(fetchVirusData);
+    }
+
+    @GetMapping("/data")
+    ResponseEntity<String> getData() throws URISyntaxException, IOException, InterruptedException {
+        String path = "data.min.json";
+        String fetchVirusData = DataService.fetchVirusData(VIRUS_DATA_URL + "/v4/min/" + path);
+        return ResponseEntity.ok().body(fetchVirusData);
+    }
+
     @GetMapping("/updatelog")
     ResponseEntity<String> getUpdateLog() throws URISyntaxException, IOException, InterruptedException {
-        String fetchVirusData = DataService.fetchVirusData(VIRUS_DATA_URL + "/updatelog/log.json");
+        String path = "/updatelog/log.json";
+        String fetchVirusData = DataService.fetchVirusData(VIRUS_DATA_URL + path);
         return ResponseEntity.ok().body(fetchVirusData);
     }
 }

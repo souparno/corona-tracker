@@ -23,7 +23,14 @@ const request = (options) => {
     );
 };
 
-export function timeseries(){ 
+export function updatelog(){ 
+    return request({
+        url: API_ROOT_URL + "/updatelog",
+        method: 'GET',
+    });
+}
+
+export function _timeseries(){ 
     return request({
         url: API_ROOT_URL + "/timeseries",
         method: 'GET',
@@ -31,9 +38,16 @@ export function timeseries(){
 }
 
 
-export function data(){ 
+export function timeseriesState(stateCode){ 
     return request({
-        url: API_ROOT_URL + "/timeseries",
+      url: API_ROOT_URL + "/timeseries/" + stateCode,
+        method: 'GET',
+    });
+}
+
+export function _data(){ 
+    return request({
+        url: API_ROOT_URL + "/data",
         method: 'GET',
     });
 }

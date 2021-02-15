@@ -1,4 +1,5 @@
-import {API_ROOT_URL, STATE_NAMES} from '../constants';
+import {STATE_NAMES} from '../constants';
+import {timeseriesState, _data} from '../utils/APIUtils';
 import useIsVisible from '../hooks/useIsVisible';
 import {fetcher, formatNumber, getStatistic} from '../utils/commonFunctions';
 
@@ -55,19 +56,8 @@ function State() {
     }
   }, [regionHighlighted.stateCode, stateCode]);
 
-  const {data: timeseries, error: timeseriesResponseError} = useSWR(
-    `${API_ROOT_URL}/timeseries-${stateCode}.min.json`,
-    fetcher,
-    {
-      revalidateOnMount: true,
-      refreshInterval: 100000,
-    }
-  );
-
-  const {data} = useSWR(`${API_ROOT_URL}/data.min.json`, fetcher, {
-    revalidateOnMount: true,
-    refreshInterval: 100000,
-  });
+  const {data: timeseries, error: timeseriesResponseError} = timeseriesState(stateCode); 
+  const {data} = _data();
 
   const toggleShowAllDistricts = () => {
     setShowAllDistricts(!showAllDistricts);

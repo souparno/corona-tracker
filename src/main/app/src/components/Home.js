@@ -1,4 +1,3 @@
-import {API_ROOT_URL} from '../constants';
 import useIsVisible from '../hooks/useIsVisible';
 import useStickySWR from '../hooks/useStickySWR';
 import {fetcher} from '../utils/commonFunctions';
@@ -8,6 +7,7 @@ import {useState, useRef, lazy, Suspense} from 'react';
 import {Helmet} from 'react-helmet';
 import {useLocation} from 'react-router-dom';
 import {useLocalStorage, useSessionStorage, useWindowSize} from 'react-use';
+import { _timeseries, _data } from '../utils/APIUtils';
 
 const Actions = lazy(() => import('./Actions'));
 const Footer = lazy(() => import('./Footer'));
@@ -20,7 +20,6 @@ const Search = lazy(() => import('./Search'));
 const StateHeader = lazy(() => import('./StateHeader'));
 const Table = lazy(() => import('./Table'));
 const TimeseriesExplorer = lazy(() => import('./TimeseriesExplorer'));
-import { timeseries } from './utils/APIUtils';
 
 function Home() {
   const [regionHighlighted, setRegionHighlighted] = useState({
@@ -36,27 +35,8 @@ function Home() {
   );
   const [date, setDate] = useState('');
   const location = useLocation();
-
-  const {data: timeseries} = useStickySWR(
-    `${API_ROOT_URL}/timeseries.min.json`,
-    fetcher,
-    {
-      revalidateOnMount: true,
-      refreshInterval: 100000,
-    }
-  );
-
-  // const {data: timeseries} = timeseries();
-
-  const {data} = useStickySWR(
-    `${API_ROOT_URL}/data${date ? `-${date}` : ''}.min.json`,
-    fetcher,
-    {
-      revalidateOnMount: true,
-      refreshInterval: 100000,
-    }
-  );
-
+  const {data: timeseries}= _timeseries();
+  const {data} = _data();
   const homeRightElement = useRef();
   const isVisible = useIsVisible(homeRightElement);
   const {width} = useWindowSize();
